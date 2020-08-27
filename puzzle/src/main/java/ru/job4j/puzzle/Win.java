@@ -34,8 +34,9 @@ public class Win {
 
     public static boolean check(int[][] board) {
         boolean result = false;
+        int[] diagonal = extractDiagonal(board);
         for (int i = 0; i < board.length; i++) {
-            if (extractDiagonal(board)[i] == 1) {
+            if (diagonal[i] == 1) {
                 if (monoHorizontal(board, i) || monoVertical(board, i)) {
                     result = true;
                     break;
