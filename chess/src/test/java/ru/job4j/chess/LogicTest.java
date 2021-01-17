@@ -13,7 +13,6 @@ import static org.junit.Assert.assertThat;
 
 public class LogicTest {
 
-    @Ignore
     @Test
     public void move()
             throws FigureNotFoundException, OccupiedCellException, ImpossibleMoveException {
@@ -22,16 +21,52 @@ public class LogicTest {
         logic.move(Cell.C1, Cell.H6);
     }
 
-   /* @Test
-    public void whenCellIsFree()throws OccupiedCellException {
+    @Test
+    public void whenMoveAllowedCellIsFree()
+            throws OccupiedCellException, FigureNotFoundException, ImpossibleMoveException {
+        Logic logic = new Logic();
+        logic.add(new BishopBlack(Cell.C1));
+        logic.add(new BishopBlack(Cell.H6));
+        logic.move(Cell.C1, Cell.G5);
+    }
+
+    @Test
+    public void whenMoveForbiddenCellIsOccupied()
+            throws OccupiedCellException, FigureNotFoundException, ImpossibleMoveException {
+        boolean rsl = false;
         Logic logic = new Logic();
         logic.add(new BishopBlack(Cell.C1));
         logic.add(new BishopBlack(Cell.G5));
-        assertThat();
+        try {
+            logic.move(Cell.C1, Cell.H6);
+        } catch (OccupiedCellException e) {
+            rsl = true;
         }
+        assertThat(rsl, is(true));
+    }
 
-*/
+    @Test
+    public void whenMoveAllowedLegalMove()
+            throws OccupiedCellException, FigureNotFoundException, ImpossibleMoveException {
+        boolean rsl = false;
+        Logic logic = new Logic();
+        logic.add(new BishopBlack(Cell.C1));
+        logic.add(new BishopBlack(Cell.G6));
+        logic.move(Cell.C1, Cell.G5);
+    }
 
-
-
+    @Test
+    public void whenMoveForbiddenIllegalMove()
+            throws OccupiedCellException, FigureNotFoundException, ImpossibleMoveException {
+        boolean rsl = false;
+        Logic logic = new Logic();
+        logic.add(new BishopBlack(Cell.C1));
+        logic.add(new BishopBlack(Cell.G5));
+        try {
+            logic.move(Cell.C1, Cell.G6);
+        } catch (ImpossibleMoveException e) {
+            rsl = true;
+        }
+        assertThat(rsl, is(true));
+    }
 }
