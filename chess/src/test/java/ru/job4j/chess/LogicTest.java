@@ -29,7 +29,6 @@ public class LogicTest {
     @Test (expected = OccupiedCellException.class)
     public void whenMoveForbiddenCellIsOccupied()
             throws OccupiedCellException, FigureNotFoundException, ImpossibleMoveException {
-        boolean rsl = false;
         Logic logic = new Logic();
         logic.add(new BishopBlack(Cell.C1));
         logic.add(new BishopBlack(Cell.G5));
@@ -39,7 +38,6 @@ public class LogicTest {
     @Test
     public void whenMoveAllowedLegalMove()
             throws OccupiedCellException, FigureNotFoundException, ImpossibleMoveException {
-        boolean rsl = false;
         Logic logic = new Logic();
         logic.add(new BishopBlack(Cell.C1));
         logic.add(new BishopBlack(Cell.G6));
@@ -49,7 +47,6 @@ public class LogicTest {
     @Test (expected = ImpossibleMoveException.class)
     public void whenMoveForbiddenIllegalMove()
             throws OccupiedCellException, FigureNotFoundException, ImpossibleMoveException {
-        boolean rsl = false;
         Logic logic = new Logic();
         logic.add(new BishopBlack(Cell.C1));
         logic.add(new BishopBlack(Cell.G5));
@@ -63,5 +60,20 @@ public class LogicTest {
         logic.add(new BishopBlack(Cell.C1));
         logic.add(new BishopBlack(Cell.G5));
         logic.move(Cell.C1, Cell.G6);
+    }
+
+    @Test (expected = FigureNotFoundException.class)
+    public void whenMoveForbiddenFigureNotFounded()
+            throws OccupiedCellException, FigureNotFoundException, ImpossibleMoveException {
+        Logic logic = new Logic();
+        logic.add(new BishopBlack(Cell.C1));
+        logic.move(Cell.C2, Cell.G6);
+    }
+
+    @Test (expected = FigureNotFoundException.class)
+    public void whenMoveForbiddenFigureNotExist()
+            throws OccupiedCellException, FigureNotFoundException, ImpossibleMoveException {
+        Logic logic = new Logic();
+        logic.move(Cell.C2, Cell.G6);
     }
 }
